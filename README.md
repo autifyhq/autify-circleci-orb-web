@@ -1,27 +1,23 @@
-# Orb Project Template
+# Autify For Web CircleCI Orb
 
-[![CircleCI Build Status](https://circleci.com/gh/autifyhq/autify-circleci-orb-mobile.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/autifyhq/autify-circleci-orb-mobile) [![CircleCI Orb Version](https://badges.circleci.com/orbs/autify/mobile.svg)](https://circleci.com/orbs/registry/orb/autify/mobile) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/autifyhq/autify-circleci-orb-mobile/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
-
-
-
-A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
-
-Additional READMEs are available in each directory.
-
-
+[![CircleCI Build Status](https://circleci.com/gh/autifyhq/autify-circleci-orb-web.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/autifyhq/autify-circleci-orb-web)
+[![CircleCI Orb Version](https://badges.circleci.com/orbs/autify/web.svg)](https://circleci.com/orbs/registry/orb/autify/web)
+[![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/autifyhq/autify-circleci-orb-web/master/LICENSE)
+[![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 ## Resources
 
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/autify/autify-circleci-orb-mobile) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.
+### How to Use
+
+Check out the [documentation on the CircleCI website](https://circleci.com/developer/ja/orbs/orb/autify/web#usage-examples).
 
 ### How to Contribute
 
-We welcome [issues](https://github.com/autifyhq/autify-circleci-orb-mobile/issues) to and [pull requests](https://github.com/autifyhq/autify-circleci-orb-mobile/pulls) against this repository!
+We welcome [issues](https://github.com/autifyhq/autify-circleci-orb-web/issues) to and [pull requests](https://github.com/autifyhq/autify-circleci-orb-web/pulls) against this repository!
 
 ### How to Publish
 * Create and push a branch with your new features.
-* When ready to publish a new production version, create a Pull Request from _feature branch_ to `master`.
+* When ready to publish a new production version, create a Pull Request from _feature branch_ to `main`.
 * The title of the pull request must contain a special semver tag: `[semver:<segment>]` where `<segment>` is replaced by one of the following values.
 
 | Increment | Description|
