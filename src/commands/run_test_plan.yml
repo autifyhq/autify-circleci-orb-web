@@ -1,0 +1,52 @@
+description: >
+  Runs a test plan on Autify For Web.
+parameters:
+  test_plan_api_base_url:
+    type: string
+    default: https://app.autify.com/api/v1/schedules/
+    description: API endpoint URL
+  test_plan_id:
+    type: string
+    description: Test Plan ID that you want to run
+  response_file_path:
+    type: string
+    default: response-web-run-test-plan.txt
+    description: File path that keeps the response from the API
+
+steps:
+  - run:
+      name: Run a test plan on Autify For Web
+      command: |
+        curl -s -XPOST \
+            -H "Authorization: Bearer ${AUTIFY_FOR_WEB_API_TOKEN}" \
+            "<<parameters.test_plan_api_base_url>>""<<parameters.test_plan_id>>" \
+            > "<<parameters.response_file_path>>"
+
+        errors=$(cat "<<parameters.response_file_path>>" | jq .errors)
+        data=$(cat "<<parameters.response_file_path>>" | jq .data)
+
+        if [ "${errors}" = "null" ]; then
+            if [ "${data}" != "null" ]; then
+                echo "Successfully started the test plan."
+                TEST_PLAN_RESULT_ID=$(echo "${data}" | jq -r .id)
+                echo "Test plan result ID : ${TEST_PLAN_RESULT_ID}"
+            else
+                # In case the response has neither `data` nor `errors`
+                echo "Something went wrong. The response was :"
+                cat "<<parameters.response_file_path>>"
+
+                exit 1
+            fi
+        else
+            error_messages=$(echo "${errors}" | jq '.[] | .message')
+            echo "Error running the test plan. The error messages are :"
+            if [ "${error_messages}" = "null" ]; then
+                cat "<<parameters.response_file_path>>"
+            else
+                echo "${error_messages}" | while read -r message; do
+                    echo "${message}"
+                done
+            fi
+
+            exit 1
+        fi
