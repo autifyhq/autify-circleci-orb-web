@@ -3,9 +3,9 @@ description: >
 usage:
   version: 2.1
   orbs:
-    autify-web: autify/web@1.2.3
+    autify-for-web: autify/web@1.2.3
   workflows:
     use-my-orb:
       jobs:
-        - autify-web/run_test_plan:
+        - autify-for-web/run_test_plan:
             test_plan_id: "12345"
