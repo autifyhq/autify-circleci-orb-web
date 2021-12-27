@@ -1,4 +1,4 @@
-# Autify For Web CircleCI Orb
+# Autify for Web CircleCI Orb
 
 [![CircleCI Build Status](https://circleci.com/gh/autifyhq/autify-circleci-orb-web.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/autifyhq/autify-circleci-orb-web)
 [![CircleCI Orb Version](https://badges.circleci.com/orbs/autify/web.svg)](https://circleci.com/orbs/registry/orb/autify/web)

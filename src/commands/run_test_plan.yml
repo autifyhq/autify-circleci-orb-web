@@ -1,5 +1,5 @@
 description: >
-  Runs a test plan on Autify For Web.
+  Runs a test plan on Autify for Web.
 parameters:
   test_plan_api_base_url:
     type: string
@@ -15,7 +15,7 @@ parameters:
 
 steps:
   - run:
-      name: Run a test plan on Autify For Web
+      name: Run a test plan on Autify for Web
       command: |
         curl -s -XPOST \
             -H "Authorization: Bearer ${AUTIFY_FOR_WEB_API_TOKEN}" \

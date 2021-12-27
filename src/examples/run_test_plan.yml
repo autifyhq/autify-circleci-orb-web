@@ -1,5 +1,5 @@
 description: >
-  Runs a test plan on Autify For Web.
+  Runs a test plan on Autify for Web.
 usage:
   version: 2.1
   orbs:

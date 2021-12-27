@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Runs a test plan to run automated E2E test scenarios on Autify For Web.
+  Runs a test plan to run automated E2E test scenarios on Autify for Web.
   Make sure to set your personal access token in the environment variable `AUTIFY_FOR_WEB_API_TOKEN` in your project.
   Click `Settings` on the left menu in https://app.autify.com/ and you can get the token in the `Generate Personal Access Token` section.
 
