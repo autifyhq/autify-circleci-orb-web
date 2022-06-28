@@ -9,9 +9,12 @@ parameters:
   autify-test-url:
     type: string
     description: 'URL of a test scenario or test plan e.g. https://app.autify.com/projects/<ID>/(scenarios|test_plans)/<ID>'
+  verbose:
+    type: boolean
+    default: true
   wait:
-    type: string
-    default: 'false'
+    type: boolean
+    default: false
     description: 'When true, the action waits until the test finishes.'
   timeout:
     type: string
@@ -55,6 +58,7 @@ steps:
       environment:
         INPUT_ACCESS_TOKEN: << parameters.access-token >>
         INPUT_AUTIFY_TEST_URL: << parameters.autify-test-url >>
+        INPUT_VERBOSE: << parameters.verbose >>
         INPUT_WAIT: << parameters.wait >>
         INPUT_TIMEOUT: << parameters.timeout >>
         INPUT_URL_REPLACEMENTS: << parameters.url-replacements >>
