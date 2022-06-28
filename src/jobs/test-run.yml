@@ -1,0 +1,74 @@
+description: >
+  Run a test scenario or test plan.
+
+docker:
+  - image: << parameters.docker-image-for-job >>
+
+parameters:
+  docker-image-for-job:
+    type: string
+    default: 'cimg/base:current'
+    description: The docker image to be used for running this job on CircleCI.
+  access-token:
+    type: env_var_name
+    default: AUTIFY_WEB_ACCESS_TOKEN
+    description: "Environment variable storing the access token of Autify for Web."
+  autify-test-url:
+    type: string
+    description: 'URL of a test scenario or test plan e.g. https://app.autify.com/projects/<ID>/(scenarios|test_plans)/<ID>'
+  wait:
+    type: string
+    default: 'false'
+    description: 'When true, the action waits until the test finishes.'
+  timeout:
+    type: string
+    default: ''
+    description: 'Timeout seconds when waiting.'
+  url-replacements:
+    type: string
+    default: ''
+    description: 'URL replacements e.g. http://example.com=http://example.net,http://example.org=http://example.net'
+  test-execution-name:
+    type: string
+    default: ''
+    description: 'Name of the test execution (not supported by test plan executions)'
+  browser:
+    type: string
+    default: ''
+    description: 'Browser for running the test scenario (not supported by test plan executions)'
+  device:
+    type: string
+    default: ''
+    description: 'Device for running the test scenario (not supported by test plan executions)'
+  device-type:
+    type: string
+    default: ''
+    description: 'Device type for running the test scenario (not supported by test plan executions)'
+  os:
+    type: string
+    default: ''
+    description: 'OS for running the test scenario (not supported by test plan executions)'
+  os-version:
+    type: string
+    default: ''
+    description: 'OS version for running the test scenario (not supported by test plan executions)'
+  autify-path:
+    type: string
+    default: 'autify'
+    description: 'A path to `autify`.'
+
+steps:
+  - autify-cli/install
+  - test-run:
+      access-token: << parameters.access-token >>
+      autify-test-url: << parameters.autify-test-url >>
+      wait: << parameters.wait >>
+      timeout: << parameters.timeout >>
+      url-replacements: << parameters.url-replacements >>
+      test-execution-name: << parameters.test-execution-name >>
+      browser: << parameters.browser >>
+      device: << parameters.device >>
+      device-type: << parameters.device-type >>
+      os: << parameters.os >>
+      os-version: << parameters.os-version >>
+      autify-path: << parameters.autify-path >>
