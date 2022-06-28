@@ -15,7 +15,11 @@ if [ -z "${ACCESS_TOKEN}" ]; then
   exit 1
 fi
 
-if [ "${INPUT_WAIT}" = "true" ]; then 
+if [ "${INPUT_VERBOSE}" = "1" ]; then
+  add_args "--verbose"
+fi
+
+if [ "${INPUT_WAIT}" = "1" ]; then
   add_args "--wait"
 fi
 

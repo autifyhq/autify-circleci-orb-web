@@ -23,10 +23,12 @@ jobs:
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/743/scenarios/91437
           autify-path: ./node_modules/.bin/autify-with-proxy
+          verbose: false
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/743/scenarios/91437
           autify-path: ./node_modules/.bin/autify-with-proxy
-          wait: 'true'
+          wait: true
+          verbose: false
 workflows:
   test-deploy:
     jobs:
