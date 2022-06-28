@@ -5,7 +5,7 @@ usage:
   version: 2.1
 
   orbs:
-    autify-web: autify/autify-web@1
+    autify-web: autify/autify-web@2
 
   workflows:
     test-run:

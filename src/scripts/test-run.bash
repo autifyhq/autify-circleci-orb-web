@@ -8,7 +8,9 @@ AUTIFY=${INPUT_AUTIFY_PATH}
 
 ARGS=${INPUT_AUTIFY_TEST_URL}
 
-if [ -z "${INPUT_ACCESS_TOKEN}" ]; then
+ACCESS_TOKEN=${INPUT_ACCESS_TOKEN}
+
+if [ -z "${ACCESS_TOKEN}" ]; then
   echo "Missing access-token."
   exit 1
 fi
@@ -52,4 +54,4 @@ if ! [ -z "${INPUT_OS_VERSION}" ]; then
   add_args "--os-version=${INPUT_OS_VERSION}"
 fi
 
-AUTIFY_WEB_ACCESS_TOKEN=${INPUT_ACCESS_TOKEN} ${AUTIFY} web test run ${ARGS}
+AUTIFY_WEB_ACCESS_TOKEN=${ACCESS_TOKEN} ${AUTIFY} web test run ${ARGS}
