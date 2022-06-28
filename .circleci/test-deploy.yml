@@ -1,0 +1,50 @@
+version: 2.1
+orbs:
+  autify-cli: autify/autify-cli@1
+  autify-web: autify/autify-web@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.1
+
+filters: &filters
+  tags:
+    only: /.*/
+
+jobs:
+  # Create a job to test the commands of your orbs.
+  # You may want to add additional validation steps to ensure the commands are working as expected.
+  command-tests:
+    docker:
+      - image: 'cimg/node:lts'
+    steps:
+      - checkout
+      - autify-cli/install
+      - run: npm install @autifyhq/autify-cli-integration-test
+      - run: echo 'export AUTIFY_WEB_ACCESS_TOKEN="token"' >> $BASH_ENV
+      # Run your orb's commands to validate them.
+      - autify-web/test-run:
+          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-path: ./node_modules/.bin/autify-with-proxy
+      - autify-web/test-run:
+          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-path: ./node_modules/.bin/autify-with-proxy
+          wait: 'true'
+workflows:
+  test-deploy:
+    jobs:
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      - command-tests:
+          filters: *filters
+      - orb-tools/pack:
+          filters: *filters
+      - orb-tools/publish:
+          orb-name: autify/autify-web
+          vcs-type: << pipeline.project.type >>
+          pub-type: production
+          requires:
+            - orb-tools/pack
+            - command-tests
+          context: orb-publishing
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
