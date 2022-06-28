@@ -1,0 +1,14 @@
+description: >
+  Run a test scenario or test plan.
+
+usage:
+  version: 2.1
+
+  orbs:
+    autify-web: autify/autify-web@1
+
+  workflows:
+    test-run:
+      jobs:
+        - autify-web/test-run:
+            autify-test-url: https://app.autify.com/projects/<ID>/(scenarios|test_plans)/<ID>

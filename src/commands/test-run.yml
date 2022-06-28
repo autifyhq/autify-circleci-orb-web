@@ -1,0 +1,64 @@
+description: >
+  Run a test scenario or test plan.
+
+parameters:
+  access-token:
+    type: env_var_name
+    default: AUTIFY_WEB_ACCESS_TOKEN
+    description: "Environment variable storing the access token of Autify for Web."
+  autify-test-url:
+    type: string
+    description: 'URL of a test scenario or test plan e.g. https://app.autify.com/projects/<ID>/(scenarios|test_plans)/<ID>'
+  wait:
+    type: string
+    default: 'false'
+    description: 'When true, the action waits until the test finishes.'
+  timeout:
+    type: string
+    default: ''
+    description: 'Timeout seconds when waiting.'
+  url-replacements:
+    type: string
+    default: ''
+    description: 'URL replacements e.g. http://example.com=http://example.net,http://example.org=http://example.net'
+  browser:
+    type: string
+    default: ''
+    description: 'Browser for running the test scenario (not supported by test plan executions)'
+  device:
+    type: string
+    default: ''
+    description: 'Device for running the test scenario (not supported by test plan executions)'
+  device-type:
+    type: string
+    default: ''
+    description: 'Device type for running the test scenario (not supported by test plan executions)'
+  os:
+    type: string
+    default: ''
+    description: 'OS for running the test scenario (not supported by test plan executions)'
+  os-version:
+    type: string
+    default: ''
+    description: 'OS version for running the test scenario (not supported by test plan executions)'
+  autify-path:
+    type: string
+    default: 'autify'
+    description: 'A path to `autify`.'
+
+steps:
+  - run:
+      environment:
+        INPUT_ACCESS_TOKEN: << parameters.access-token >>
+        INPUT_AUTIFY_TEST_URL: << parameters.autify-test-url >>
+        INPUT_WAIT: << parameters.wait >>
+        INPUT_TIMEOUT: << parameters.timeout >>
+        INPUT_URL_REPLACEMENTS: << parameters.url-replacements >>
+        INPUT_BROWSER: << parameters.browser >>
+        INPUT_DEVICE: << parameters.device >>
+        INPUT_DEVICE_TYPE: << parameters.device-type >>
+        INPUT_OS: << parameters.os >>
+        INPUT_OS_VERSION: << parameters.os-version >>
+        INPUT_AUTIFY_PATH: << parameters.autify-path >>
+      name: Run a test scenario or test plan
+      command: <<include(scripts/test-run.bash)>>
