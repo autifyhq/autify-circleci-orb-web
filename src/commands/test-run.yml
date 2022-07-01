@@ -70,4 +70,4 @@ steps:
         INPUT_OS_VERSION: << parameters.os-version >>
         INPUT_AUTIFY_PATH: << parameters.autify-path >>
       name: Run a test scenario or test plan
-      command: <<include(scripts/test-run.bash)>>
+      command: <<include(scripts/test-run.sh)>>
