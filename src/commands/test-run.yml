@@ -48,10 +48,10 @@ parameters:
     type: string
     default: ''
     description: 'OS version for running the test scenario (not supported by test plan executions)'
-  autify-connect-key:
+  autify-connect:
     type: string
     default: ''
-    description: 'Name of the Autify Connect Key (not supported by test plan executions)'
+    description: 'Name of the Autify Connect Access Point (not supported by test plan executions)'
   autify-path:
     type: string
     default: 'autify'
@@ -72,7 +72,7 @@ steps:
         INPUT_DEVICE_TYPE: << parameters.device-type >>
         INPUT_OS: << parameters.os >>
         INPUT_OS_VERSION: << parameters.os-version >>
-        INPUT_AUTIFY_CONNECT_KEY: << parameters.autify-connect-key >>
+        INPUT_AUTIFY_CONNECT: << parameters.autify-connect >>
         INPUT_AUTIFY_PATH: << parameters.autify-path >>
       name: Run a test scenario or test plan
       command: <<include(scripts/test-run.sh)>>
