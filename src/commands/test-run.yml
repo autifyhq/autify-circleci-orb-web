@@ -48,6 +48,10 @@ parameters:
     type: string
     default: ''
     description: 'OS version for running the test scenario (not supported by test plan executions)'
+  autify-connect-key:
+    type: string
+    default: ''
+    description: 'Name of the Autify Connect Key (not supported by test plan executions)'
   autify-path:
     type: string
     default: 'autify'
@@ -62,12 +66,13 @@ steps:
         INPUT_WAIT: << parameters.wait >>
         INPUT_TIMEOUT: << parameters.timeout >>
         INPUT_URL_REPLACEMENTS: << parameters.url-replacements >>
-        TEST_EXECUTION_NAME: << parameters.test-execution-name >>
+        INPUT_TEST_EXECUTION_NAME: << parameters.test-execution-name >>
         INPUT_BROWSER: << parameters.browser >>
         INPUT_DEVICE: << parameters.device >>
         INPUT_DEVICE_TYPE: << parameters.device-type >>
         INPUT_OS: << parameters.os >>
         INPUT_OS_VERSION: << parameters.os-version >>
+        INPUT_AUTIFY_CONNECT_KEY: << parameters.autify-connect-key >>
         INPUT_AUTIFY_PATH: << parameters.autify-path >>
       name: Run a test scenario or test plan
       command: <<include(scripts/test-run.sh)>>

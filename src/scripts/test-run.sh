@@ -41,7 +41,7 @@ if [ -n "${INPUT_URL_REPLACEMENTS}" ]; then
   done
 fi
 
-if [ -n "${INPUT_NAME}" ]; then
+if [ -n "${INPUT_TEST_EXECUTION_NAME}" ]; then
   add_args "--name=${INPUT_TEST_EXECUTION_NAME}"
 fi
 
@@ -63,6 +63,10 @@ fi
 
 if [ -n "${INPUT_OS_VERSION}" ]; then
   add_args "--os-version=${INPUT_OS_VERSION}"
+fi
+
+if [ -n "${INPUT_AUTIFY_CONNECT_KEY}" ]; then
+  add_args "--autify-connect-key=${INPUT_AUTIFY_CONNECT_KEY}"
 fi
 
 AUTIFY_WEB_ACCESS_TOKEN="${ACCESS_TOKEN}" "${AUTIFY}" web test run "${ARGS[@]}"
