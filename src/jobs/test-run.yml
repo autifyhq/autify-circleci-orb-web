@@ -55,6 +55,10 @@ parameters:
     type: string
     default: ''
     description: 'OS version for running the test scenario (not supported by test plan executions)'
+  autify-connect-key:
+    type: string
+    default: ''
+    description: 'Name of the Autify Connect Key (not supported by test plan executions)'
   autify-path:
     type: string
     default: 'autify'
@@ -75,4 +79,5 @@ steps:
       device-type: << parameters.device-type >>
       os: << parameters.os >>
       os-version: << parameters.os-version >>
+      autify-connect-key: << parameters.autify-connect-key >>
       autify-path: << parameters.autify-path >>

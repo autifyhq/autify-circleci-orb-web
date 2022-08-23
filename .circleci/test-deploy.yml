@@ -16,6 +16,7 @@ jobs:
       - image: 'cimg/node:lts'
     steps:
       - checkout
+      - run: bash test/test.bash
       - autify-cli/install
       - run: npm install @autifyhq/autify-cli-integration-test
       - run: echo 'export AUTIFY_WEB_ACCESS_TOKEN="token"' >> $BASH_ENV
