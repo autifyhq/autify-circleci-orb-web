@@ -65,7 +65,6 @@ parameters:
     description: 'A path to `autify`.'
 
 steps:
-  - autify-cli/install
   - test-run:
       access-token: << parameters.access-token >>
       autify-test-url: << parameters.autify-test-url >>
