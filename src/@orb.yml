@@ -4,7 +4,7 @@ description: >
   CircleCI integration with Autify for Web. Run a test scenario or test plan with this Orb.
 
 display:
-  home_url: "https://help.autify.com/docs/autify-command-line-interface"
+  home_url: "https://help.autify.com/docs/circleci-integration"
   source_url: "https://github.com/autifyhq/autify-circleci-orb-web"
 
 orbs:
