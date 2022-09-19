@@ -1,33 +1,55 @@
 version: 2.1
 orbs:
-  autify-cli: autify/autify-cli@1
   autify-web: autify/autify-web@dev:<<pipeline.git.revision>>
+  autify-cli: autify/autify-cli@2
+  node: circleci/node@5
   orb-tools: circleci/orb-tools@11.1
 
 filters: &filters
   tags:
     only: /.*/
 
+executors:
+  windows:
+    machine:
+      resource_class: 'windows.medium'
+      image: windows-server-2022-gui:current
+  macos:
+    macos:
+      xcode: 14.0.0
+
 jobs:
   # Create a job to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-tests:
-    docker:
-      - image: 'cimg/node:lts'
+    parameters:
+      os:
+        type: executor
+    executor: << parameters.os >>
+    shell: bash
+    environment:
+      AUTIFY_WEB_ACCESS_TOKEN: token
+      AUTIFY_CLI_INTEGRATION_TEST_INSTALL: 1
+      AUTIFY_TEST_WAIT_INTERVAL_SECOND: 0
+      AUTIFY_CONNECT_CLIENT_MODE: fake
     steps:
       - checkout
       - run: bash test/test.bash
-      - autify-cli/install
-      - run: npm install @autifyhq/autify-cli-integration-test
-      - run: echo 'export AUTIFY_WEB_ACCESS_TOKEN="token"' >> $BASH_ENV
+      - node/install:
+          node-version: 16.17.0
+      - run: nvm use 16.17.0
       # Run your orb's commands to validate them.
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/743/scenarios/91437
-          autify-path: ./node_modules/.bin/autify-with-proxy
+          autify-path: autify-with-proxy
+          # TODO: Remove once autify-cli 0.11.0 is released.
+          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/743/scenarios/91437
-          autify-path: ./node_modules/.bin/autify-with-proxy
+          autify-path: autify-with-proxy
+          # TODO: Remove once autify-cli 0.11.0 is released.
+          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           wait: true
           verbose: false
 workflows:
@@ -36,6 +58,9 @@ workflows:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - command-tests:
           filters: *filters
+          matrix:
+            parameters:
+              os: [autify-cli/default, macos, windows]
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
