@@ -20,6 +20,7 @@ function before() {
   unset INPUT_OS
   unset INPUT_OS_VERSION
   unset INPUT_AUTIFY_CONNECT
+  export INPUT_AUTIFY_CONNECT_CLIENT=0
   echo "=== TEST ==="
 }
 
@@ -94,7 +95,8 @@ function test_log() {
   export INPUT_OS=h
   export INPUT_OS_VERSION=i
   export INPUT_AUTIFY_CONNECT=j
-  test_command "autify web test run a --verbose --wait -t=300 -r=b1 -r=b2 --max-retry-count=c --name=d --browser=e --device=f --device-type=g --os=h --os-version=i --autify-connect=j"
+  export INPUT_AUTIFY_CONNECT_CLIENT=1
+  test_command "autify web test run a --verbose --wait -t=300 -r=b1 -r=b2 --max-retry-count=c --name=d --browser=e --device=f --device-type=g --os=h --os-version=i --autify-connect=j --autify-connect-client"
   test_code 0
   test_log
 }

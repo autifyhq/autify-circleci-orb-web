@@ -48,17 +48,25 @@ jobs:
       - run: nvm use 16.17.0
       # Run your orb's commands to validate them.
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
           # TODO: Remove once autify-cli 0.11.0 is released.
           autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
           # TODO: Remove once autify-cli 0.11.0 is released.
           autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           wait: true
+          verbose: false
+      - autify-web/test-run:
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
+          autify-path: autify-with-proxy
+          # TODO: Remove once autify-cli 0.11.0 is released.
+          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
+          wait: true
+          autify-connect-client: true
           verbose: false
 
 workflows:
@@ -74,7 +82,7 @@ workflows:
           name: job-test-run
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
           # TODO: Remove once autify-cli 0.11.0 is released.
           autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
@@ -83,12 +91,23 @@ workflows:
           name: job-test-run-wait
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
           # TODO: Remove once autify-cli 0.11.0 is released.
           autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
           wait: true
+      - autify-web/test-run:
+          name: job-test-run-autify-connect-client
+          filters: *filters
+          executor: integration-test
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
+          autify-path: autify-with-proxy
+          # TODO: Remove once autify-cli 0.11.0 is released.
+          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
+          verbose: false
+          wait: true
+          autify-connect-client: true
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -100,6 +119,7 @@ workflows:
             - command-tests
             - job-test-run
             - job-test-run-wait
+            - job-test-run-autify-connect-client
           context: orb-publishing
           filters:
             branches:

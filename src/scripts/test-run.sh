@@ -73,4 +73,8 @@ if [ -n "${INPUT_AUTIFY_CONNECT}" ]; then
   add_args "--autify-connect=${INPUT_AUTIFY_CONNECT}"
 fi
 
+if [ "${INPUT_AUTIFY_CONNECT_CLIENT}" -eq 1 ]; then
+  add_args "--autify-connect-client"
+fi
+
 AUTIFY_WEB_ACCESS_TOKEN="${ACCESS_TOKEN}" "${AUTIFY}" web test run "${ARGS[@]}"
