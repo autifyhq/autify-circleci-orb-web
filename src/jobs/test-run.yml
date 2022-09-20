@@ -62,6 +62,10 @@ parameters:
     type: string
     default: 'autify'
     description: 'A path to `autify`.'
+  autify-connect-client:
+    type: boolean
+    default: false
+    description: 'When true, start Autify Connect Client. (not supported by test plan executions)'
   autify-cli-installer-url:
     type: string
     default: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash"
@@ -87,5 +91,6 @@ steps:
       os: << parameters.os >>
       os-version: << parameters.os-version >>
       autify-connect: << parameters.autify-connect >>
+      autify-connect-client: << parameters.autify-connect-client >>
       autify-path: << parameters.autify-path >>
       autify-cli-installer-url: << parameters.autify-cli-installer-url >>
