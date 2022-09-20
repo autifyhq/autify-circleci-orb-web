@@ -24,6 +24,10 @@ parameters:
     type: string
     default: ''
     description: 'URL replacements e.g. http://example.com=http://example.net,http://example.org=http://example.net'
+  max-retry-count:
+    type: string
+    default: ''
+    description: 'Maximum retry count while waiting. The command can take up to `timeout * (max-retry-count + 1)`. Only effective with `wait`'
   test-execution-name:
     type: string
     default: ''
@@ -72,6 +76,7 @@ steps:
         INPUT_WAIT: << parameters.wait >>
         INPUT_TIMEOUT: << parameters.timeout >>
         INPUT_URL_REPLACEMENTS: << parameters.url-replacements >>
+        INPUT_MAX_RETRY_COUNT: << parameters.max-retry-count >>
         INPUT_TEST_EXECUTION_NAME: << parameters.test-execution-name >>
         INPUT_BROWSER: << parameters.browser >>
         INPUT_DEVICE: << parameters.device >>
