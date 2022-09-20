@@ -41,6 +41,10 @@ if [ -n "${INPUT_URL_REPLACEMENTS}" ]; then
   done
 fi
 
+if [ -n "${INPUT_MAX_RETRY_COUNT}" ]; then
+  add_args "--max-retry-count=${INPUT_MAX_RETRY_COUNT}"
+fi
+
 if [ -n "${INPUT_TEST_EXECUTION_NAME}" ]; then
   add_args "--name=${INPUT_TEST_EXECUTION_NAME}"
 fi
