@@ -50,21 +50,15 @@ jobs:
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
-          # TODO: Remove once autify-cli 0.11.0 is released.
-          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
-          # TODO: Remove once autify-cli 0.11.0 is released.
-          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           wait: true
           verbose: false
       - autify-web/test-run:
           autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
-          # TODO: Remove once autify-cli 0.11.0 is released.
-          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           wait: true
           autify-connect-client: true
           verbose: false
@@ -84,8 +78,6 @@ workflows:
           executor: integration-test
           autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
-          # TODO: Remove once autify-cli 0.11.0 is released.
-          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
       - autify-web/test-run:
           name: job-test-run-wait
@@ -93,8 +85,6 @@ workflows:
           executor: integration-test
           autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
-          # TODO: Remove once autify-cli 0.11.0 is released.
-          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
           wait: true
       - autify-web/test-run:
@@ -103,8 +93,6 @@ workflows:
           executor: integration-test
           autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
-          # TODO: Remove once autify-cli 0.11.0 is released.
-          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           verbose: false
           wait: true
           autify-connect-client: true
