@@ -17,10 +17,18 @@ executors:
   macos:
     macos:
       xcode: 14.0.0
+  integration-test:
+    docker:
+      - image: cimg/node:current
+    resource_class: small
+    shell: bash
+    environment:
+      AUTIFY_WEB_ACCESS_TOKEN: token
+      AUTIFY_CLI_INTEGRATION_TEST_INSTALL: 1
+      AUTIFY_TEST_WAIT_INTERVAL_SECOND: 0
+      AUTIFY_CONNECT_CLIENT_MODE: fake
 
 jobs:
-  # Create a job to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
   command-tests:
     parameters:
       os:
@@ -52,6 +60,7 @@ jobs:
           autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
           wait: true
           verbose: false
+
 workflows:
   test-deploy:
     jobs:
@@ -61,6 +70,25 @@ workflows:
           matrix:
             parameters:
               os: [autify-cli/default, macos, windows]
+      - autify-web/test-run:
+          name: job-test-run
+          filters: *filters
+          executor: integration-test
+          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-path: autify-with-proxy
+          # TODO: Remove once autify-cli 0.11.0 is released.
+          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
+          verbose: false
+      - autify-web/test-run:
+          name: job-test-run-wait
+          filters: *filters
+          executor: integration-test
+          autify-test-url: https://app.autify.com/projects/743/scenarios/91437
+          autify-path: autify-with-proxy
+          # TODO: Remove once autify-cli 0.11.0 is released.
+          autify-cli-installer-url: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash"
+          verbose: false
+          wait: true
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -70,6 +98,8 @@ workflows:
           requires:
             - orb-tools/pack
             - command-tests
+            - job-test-run
+            - job-test-run-wait
           context: orb-publishing
           filters:
             branches:
