@@ -178,6 +178,10 @@ workflows:
             parameters:
               os: [autify-cli/default, macos, windows]
           autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash
+  nightly-beta-test:
+    when:
+      equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
       - command-tests:
           name: beta-<< matrix.os >>
           matrix:
