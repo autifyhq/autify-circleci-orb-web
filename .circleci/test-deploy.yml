@@ -33,6 +33,8 @@ jobs:
     parameters:
       os:
         type: executor
+      autify-cli-installer-url:
+        type: string
     executor: << parameters.os >>
     shell: bash
     environment:
@@ -48,38 +50,47 @@ jobs:
       - run: nvm use 16.17.0
       # Run your orb's commands to validate them.
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
+          autify-cli-installer-url: << parameters.autify-cli-installer-url >>
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           verbose: false
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
+          autify-cli-installer-url: << parameters.autify-cli-installer-url >>
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           wait: true
           verbose: false
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
+          autify-cli-installer-url: << parameters.autify-cli-installer-url >>
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           wait: true
           autify-connect-client: true
           verbose: false
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           autify-path: autify-with-proxy
+          autify-cli-installer-url: << parameters.autify-cli-installer-url >>
+          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           verbose: false
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           autify-path: autify-with-proxy
+          autify-cli-installer-url: << parameters.autify-cli-installer-url >>
+          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           wait: true
           verbose: false
       - autify-web/test-run:
-          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           autify-path: autify-with-proxy
+          autify-cli-installer-url: << parameters.autify-cli-installer-url >>
+          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           wait: true
           autify-connect-client: true
           verbose: false
 
 workflows:
   test-deploy:
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - command-tests:
@@ -87,27 +98,28 @@ workflows:
           matrix:
             parameters:
               os: [autify-cli/default, macos, windows]
+          autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash
       - autify-web/test-run:
           name: job-test-run
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           verbose: false
       - autify-web/test-run:
           name: job-test-run-wait
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           verbose: false
           wait: true
       - autify-web/test-run:
           name: job-test-run-autify-connect-client
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           autify-path: autify-with-proxy
+          autify-test-url: https://app.autify.com/projects/000/scenarios/0000
           verbose: false
           wait: true
           autify-connect-client: true
@@ -115,23 +127,23 @@ workflows:
           name: job-test-run-test-plan
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           autify-path: autify-with-proxy
+          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           verbose: false
       - autify-web/test-run:
           name: job-test-run-test-plan-wait
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           autify-path: autify-with-proxy
+          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           verbose: false
           wait: true
       - autify-web/test-run:
           name: job-test-run-test-plan-autify-connect-client
           filters: *filters
           executor: integration-test
-          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           autify-path: autify-with-proxy
+          autify-test-url: https://app.autify.com/projects/000/test_plans/0000
           verbose: false
           wait: true
           autify-connect-client: true
@@ -142,7 +154,6 @@ workflows:
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - orb-tools/pack
             - command-tests
             - job-test-run
             - job-test-run-wait
@@ -150,9 +161,26 @@ workflows:
             - job-test-run-test-plan
             - job-test-run-test-plan-wait
             - job-test-run-test-plan-autify-connect-client
+            - orb-tools/pack
           context: orb-publishing
           filters:
             branches:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+  nightly-test:
+    when:
+      equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - command-tests:
+          name: stable-<< matrix.os >>
+          matrix:
+            parameters:
+              os: [autify-cli/default, macos, windows]
+          autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash
+      - command-tests:
+          name: beta-<< matrix.os >>
+          matrix:
+            parameters:
+              os: [autify-cli/default, macos, windows]
+          autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash
