@@ -57,7 +57,7 @@ parameters:
   autify-connect:
     type: string
     default: ''
-    description: 'Name of the Autify Connect Access Point (not supported by test plan executions)'
+    description: 'Name of the Autify Connect Access Point'
   autify-path:
     type: string
     default: 'autify'
@@ -65,7 +65,7 @@ parameters:
   autify-connect-client:
     type: boolean
     default: false
-    description: 'When true, start Autify Connect Client. (not supported by test plan executions)'
+    description: 'When true, start Autify Connect Client'
   autify-cli-installer-url:
     type: string
     default: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash"
