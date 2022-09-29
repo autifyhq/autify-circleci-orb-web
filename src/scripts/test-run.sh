@@ -77,4 +77,6 @@ if [ "${INPUT_AUTIFY_CONNECT_CLIENT}" -eq 1 ]; then
   add_args "--autify-connect-client"
 fi
 
+export AUTIFY_CLI_USER_AGENT_SUFFIX="${AUTIFY_CLI_USER_AGENT_SUFFIX:=circleci-orb-web-test-run}"
+
 AUTIFY_WEB_ACCESS_TOKEN="${ACCESS_TOKEN}" "${AUTIFY}" web test run "${ARGS[@]}"
