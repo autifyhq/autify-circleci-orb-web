@@ -7,8 +7,16 @@ usage:
   orbs:
     autify-web: autify/autify-web@3
 
+  jobs:
+    test-run-by-command:
+      executor: autify-web/default
+      steps:
+        - autify-web/test-run:
+            autify-test-url: https://app.autify.com/projects/<ID>/(scenarios|test_plans)/<ID>
+
   workflows:
     test-run:
       jobs:
+        - test-run-by-command
         - autify-web/test-run:
             autify-test-url: https://app.autify.com/projects/<ID>/(scenarios|test_plans)/<ID>

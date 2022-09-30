@@ -1,0 +1,17 @@
+description: >
+  A base Docker image should work.
+docker:
+  - image: 'cimg/base:<<parameters.tag>>'
+resource_class: <<parameters.size>>
+shell: bash
+parameters:
+  tag:
+    default: current
+    description: >
+      Pick a specific cimg/base image variant:
+      https://hub.docker.com/r/cimg/base/tags
+    type: string
+  size:
+    default: small
+    type: string
+    description: Docker executer's resource_class
