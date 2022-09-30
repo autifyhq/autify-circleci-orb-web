@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   autify-web: autify/autify-web@dev:<<pipeline.git.revision>>
-  autify-cli: autify/autify-cli@2
   node: circleci/node@5
   orb-tools: circleci/orb-tools@11.1
 
@@ -97,7 +96,7 @@ workflows:
           filters: *filters
           matrix:
             parameters:
-              os: [autify-cli/default, macos, windows]
+              os: [autify-web/default, macos, windows]
           autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash
       - autify-web/test-run:
           name: job-test-run
@@ -176,7 +175,7 @@ workflows:
           name: stable-<< matrix.os >>
           matrix:
             parameters:
-              os: [autify-cli/default, macos, windows]
+              os: [autify-web/default, macos, windows]
           autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash
   nightly-beta-test:
     when:
@@ -186,5 +185,5 @@ workflows:
           name: beta-<< matrix.os >>
           matrix:
             parameters:
-              os: [autify-cli/default, macos, windows]
+              os: [autify-web/default, macos, windows]
           autify-cli-installer-url: https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/beta/install-cicd.bash
