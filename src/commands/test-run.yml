@@ -60,6 +60,10 @@ parameters:
     type: boolean
     default: false
     description: 'When true, start Autify Connect Client'
+  autify-connect-client-extra-arguments:
+    type: string
+    default: ''
+    description: 'Extra command line arguments you want to pass to Autify Connect Client e.g. "--experimental-tunnel-proxy http://proxy".'
   autify-path:
     type: string
     default: 'autify'
@@ -93,6 +97,7 @@ steps:
         INPUT_OS_VERSION: << parameters.os-version >>
         INPUT_AUTIFY_CONNECT: << parameters.autify-connect >>
         INPUT_AUTIFY_CONNECT_CLIENT: << parameters.autify-connect-client >>
+        INPUT_AUTIFY_CONNECT_CLIENT_EXTRA_ARGUMENTS: << parameters.autify-connect-client-extra-arguments >>
         INPUT_AUTIFY_PATH: << parameters.autify-path >>
       name: Run a test scenario or test plan
       command: <<include(scripts/test-run.sh)>>

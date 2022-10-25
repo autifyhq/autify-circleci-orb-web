@@ -66,6 +66,10 @@ parameters:
     type: boolean
     default: false
     description: 'When true, start Autify Connect Client'
+  autify-connect-client-extra-arguments:
+    type: string
+    default: ''
+    description: 'Extra command line arguments you want to pass to Autify Connect Client e.g. "--experimental-tunnel-proxy http://proxy".'
   autify-cli-installer-url:
     type: string
     default: "https://autify-cli-assets.s3.amazonaws.com/autify-cli/channels/stable/install-cicd.bash"
@@ -92,5 +96,6 @@ steps:
       os-version: << parameters.os-version >>
       autify-connect: << parameters.autify-connect >>
       autify-connect-client: << parameters.autify-connect-client >>
+      autify-connect-client-extra-arguments: << parameters.autify-connect-client-extra-arguments >>
       autify-path: << parameters.autify-path >>
       autify-cli-installer-url: << parameters.autify-cli-installer-url >>
