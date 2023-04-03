@@ -30,7 +30,7 @@ if [ "${INPUT_WAIT}" -eq 1 ]; then
   add_args "--wait"
 fi
 
-if [ -n "${INPUT_TIMEOUT}" ]; then
+if [ "${INPUT_TIMEOUT}" -ne -1 ]; then
   add_args "-t=${INPUT_TIMEOUT}"
 fi
 
@@ -41,7 +41,7 @@ if [ -n "${INPUT_URL_REPLACEMENTS}" ]; then
   done
 fi
 
-if [ -n "${INPUT_MAX_RETRY_COUNT}" ]; then
+if [ "${INPUT_MAX_RETRY_COUNT}" -ne -1 ]; then
   add_args "--max-retry-count=${INPUT_MAX_RETRY_COUNT}"
 fi
 

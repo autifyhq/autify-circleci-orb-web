@@ -17,16 +17,16 @@ parameters:
     default: false
     description: 'When true, the action waits until the test finishes.'
   timeout:
-    type: string
-    default: ''
+    type: integer
+    default: -1
     description: 'Timeout seconds when waiting.'
   url-replacements:
     type: string
     default: ''
     description: 'URL replacements e.g. http://example.com=http://example.net,http://example.org=http://example.net'
   max-retry-count:
-    type: string
-    default: ''
+    type: integer
+    default: -1
     description: 'Maximum retry count while waiting. The command can take up to `timeout * (max-retry-count + 1)`. Only effective with `wait`'
   test-execution-name:
     type: string
