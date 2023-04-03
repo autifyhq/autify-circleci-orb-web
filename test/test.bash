@@ -88,7 +88,7 @@ function test_log() {
   export INPUT_WAIT=1
   export INPUT_TIMEOUT=300
   export INPUT_URL_REPLACEMENTS="https://example.com https://example.net,https://example.net https://example.com?foo=bar"
-  export INPUT_MAX_RETRY_COUNT=c
+  export INPUT_MAX_RETRY_COUNT=1
   export INPUT_TEST_EXECUTION_NAME=d
   export INPUT_BROWSER=e
   export INPUT_DEVICE=f
@@ -98,7 +98,7 @@ function test_log() {
   export INPUT_AUTIFY_CONNECT=j
   export INPUT_AUTIFY_CONNECT_CLIENT=1
   export INPUT_AUTIFY_CONNECT_CLIENT_EXTRA_ARGUMENTS=k
-  test_command "autify web test run a --verbose --wait -t=300 -r=\"https://example.com https://example.net\" -r=\"https://example.net https://example.com?foo=bar\" --max-retry-count=c --name=d --browser=e --device=f --device-type=g --os=h --os-version=i --autify-connect=j --autify-connect-client --autify-connect-client-extra-arguments=k"
+  test_command "autify web test run a --verbose --wait -t=300 -r=\"https://example.com https://example.net\" -r=\"https://example.net https://example.com?foo=bar\" --max-retry-count=1 --name=d --browser=e --device=f --device-type=g --os=h --os-version=i --autify-connect=j --autify-connect-client --autify-connect-client-extra-arguments=k"
   test_code 0
   test_log
 }
