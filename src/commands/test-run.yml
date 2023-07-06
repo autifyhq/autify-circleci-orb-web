@@ -18,7 +18,7 @@ parameters:
     description: 'When true, the action waits until the test finishes.'
   timeout:
     type: integer
-    default: -1
+    default: 300
     description: 'Timeout seconds when waiting.'
   url-replacements:
     type: string
