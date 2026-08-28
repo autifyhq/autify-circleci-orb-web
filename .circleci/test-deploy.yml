@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   autify-web: autify/autify-web@dev:<<pipeline.git.revision>>
-  node: circleci/node@5
+  node: circleci/node@5.3.0
   orb-tools: circleci/orb-tools@11.1
 
 filters: &filters
